@@ -103,6 +103,7 @@ class MapEditor {
 
     changeMapSize(newSize) {
         this.started = true;
+        document.getElementById('walledit').setAttribute('class', 'invisible');
         this.mapname = document.getElementById('mapname').value;
         if (!this.mapname) {
             alert('Please specify a Mapname');
