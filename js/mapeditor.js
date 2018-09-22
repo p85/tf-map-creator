@@ -261,6 +261,7 @@ class MapEditor {
         let wallindex = 1;
         this.walls.forEach(wall => {
             wallfiles.push({ filename: wallindex + '.data', data: wall.data });
+            wallindex += 1;
         });
         const ammo = this.getsprite('ammo');
         ammospritefile = ammo.sprite;
@@ -276,6 +277,7 @@ class MapEditor {
         playermetafile = this.createSpriteMetaFile(player, true);
         zip.file(this.mapname + '/' + this.mapname + '.data', mapdatafile);
         zip.file(this.mapname + '/' + this.mapname + '.meta', mapmetafile);
+        console.log(wallfiles);
         wallfiles.forEach(wallfile => {
             zip.file(this.mapname + '/walls/' + wallfile.filename, wallfile.data);
         });
