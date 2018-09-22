@@ -112,6 +112,7 @@ class MapEditor {
         this.walls = [];
         this.mapdata = [];
         this.sprites = [];
+        this.wallnr = 1;
         this.refreshWallList();
         this.refreshTileList();
         this.initEmptyMap();
@@ -325,6 +326,5 @@ class MapEditor {
         return returnthis;
     }
 }
-
 
 const instance = new MapEditor();
