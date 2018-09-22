@@ -1,0 +1,64 @@
+.mapeditor-label {
+    margin-top: 15px;
+}
+
+.spriteeditor-label {
+    margin-top: 15px;
+}
+
+.button-change-mapsize {
+    margin-left: 15px;
+}
+
+table {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 90%;
+}
+
+td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    width: 15px;
+    height: 15px;
+}
+
+.sprite-box {
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-bottom: 15px;
+}
+
+textarea {
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.meta-text-box {
+    width: 60px;
+}
+
+.red {
+    color: red;
+    font-weight: bolder;
+    padding-left: 15px;
+}
+
+.spacer-top {
+    margin-top: 15px;
+}
+
+.spacer-left {
+    margin-left: 15px;
+}
+
+.large {
+    height: 200;
+}
+
+.spacer-bottom {
+    margin-bottom :15px;
+}
+
+.small-dialog {
+    width: 300px;
+}

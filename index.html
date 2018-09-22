@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Telefrag Map Creator</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="./css/mapeditor.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="./js/jszip.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="./js/mapeditor.js"></script>
+    <script src="./js/sprites.js"></script>
+    <script src="./js/require.js"></script>
+    
+</head>
+
+<body>
+
+    <div class="container">
+        <h2>Telefrag Map Creator</h2>
+        <button type="button" class="btn btn-primary spacer-top spacer-bottom" onClick="instance.compile()">Compile and Download</button>
+        <span class="spacer-left spacer-top"><a href="https://pastebin.com/kHBnFd5z" target="_blank">Manual</a> for Creating TF-Maps (no Error Checking currently)</span>
+        <ul class="nav nav-pills">
+            <li class="active"><a data-toggle="pill" href="#map">Map</a></li>
+            <li><a data-toggle="pill" href="#sprites">Sprites</a></li>
+        </ul>
+
+        <div class="tab-content">
+            <div id="map" class="tab-pane fade in active">
+                <h3>Map Creation</h3>
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="pill" href="#mapedit">Map Editor</a></li>
+                    <li><a data-toggle="pill" href="#mapwall">Wall Editor</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="mapedit" class="tab-pane fade in active">
+                        <div class="form-group row">
+                            <div class="form-inline spacer-top dropdown">
+                                <button type="button" class="btn btn-primary button-change-mapsize" data-toggle="modal"
+                                    data-target="#newmapmodal">New Map</button>
+                                <button class="btn btn-primary dropdown-toggle spacer-left" type="button" data-toggle="dropdown">Tile
+                                    <span class="caret"></span></button>
+                                <ul class="dropdown-menu" id="tilemenu">
+
+                                </ul>
+                                <span class="space-left" id="seltile"></span>
+                            </div>
+                        </div>
+                        <div id="maparea">
+
+                        </div>
+                    </div>
+                    <div id="mapwall" class="tab-pane fade">
+                        <div class="dropdown spacer-top">
+                            <button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select
+                                a Wall
+                                <span class="caret"></span></button>
+                            <ul class="dropdown-menu" id="wallmenu">
+
+                            </ul>
+                            <button type="button" class="btn btn-primary spacer-left" id="newwall" onClick="instance.createNewWall()">New
+                                Wall</button>
+                        </div>
+                        <div id="walledit" class="invisible">
+                            <div class="spacer-top">
+                                <label>Name:</label><br>
+                                <input type="text" id="walleditname">
+                            </div>
+                            <div class="spacer-top">
+                                <label>Wall Sprite:</label><br>
+                                <textarea rows="8" cols="16" id="walleditdata"></textarea>
+                            </div>
+                            <div class="spacer-top">
+                                <button type="button" class="btn btn-primary spacer-left" id="savewall" onClick="instance.saveWall()">Save
+                                    Wall</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="sprites" class="tab-pane fade">
+                <h3>Sprite Manager</h3>
+                <ul class="nav nav-pills">
+                    <li class="active"><a data-toggle="pill" href="#spritesammo">Ammo</a></li>
+                    <li><a data-toggle="pill" href="#spritesarmor">Armor</a></li>
+                    <li><a data-toggle="pill" href="#spriteshealth">Health</a></li>
+                    <li><a data-toggle="pill" href="#spritesplayer">Player</a></li>
+                </ul>
+                <div class="tab-content">
+                    <div id="spritesammo" class="tab-pane fade in active">
+                        <h3>Ammo:</h3>
+                        <div class="sprite-box">
+                            <div>
+                                <label class="spriteeditor-label">Sprite:</label><br>
+                                <textarea id="spriteammo" rows="8"></textarea>
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">XScale:</label><br>
+                                <input type="text" id="spriteammoxscale" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">YScale:</label><br>
+                                <input type="text" id="spriteammoyscale" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">VOffset:</label><br>
+                                <input type="text" id="spriteammovoffset" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">Value:</label><br>
+                                <input type="text" id="spriteammovalue" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">Respawn:</label><br>
+                                <input type="text" id="spriteammorespawn" class="meta-text-box">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="spritesarmor" class="tab-pane fade">
+                        <h3>Armor:</h3>
+                        <div class="sprite-box">
+                            <div>
+                                <label class="spriteeditor-label">Sprite:</label><br>
+                                <textarea id="spritearmor" rows="8"></textarea>
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">XScale:</label><br>
+                                <input type="text" id="spritearmorxscale" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">YScale:</label><br>
+                                <input type="text" id="spritearmoryscale" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">VOffset:</label><br>
+                                <input type="text" id="spritearmorvoffset" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">Value:</label><br>
+                                <input type="text" id="spritearmorvalue" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">Respawn:</label><br>
+                                <input type="text" id="spritearmorrespawn" class="meta-text-box">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="spriteshealth" class="tab-pane fade">
+                        <h3>Health:</h3>
+                        <div class="sprite-box">
+                            <div>
+                                <label class="spriteeditor-label">Sprite:</label><br>
+                                <textarea id="spritehealth" rows="8"></textarea>
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">XScale:</label><br>
+                                <input type="text" id="spritehealthxscale" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">YScale:</label><br>
+                                <input type="text" id="spritehealthyscale" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">VOffset:</label><br>
+                                <input type="text" id="spritehealthvoffset" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">Value:</label><br>
+                                <input type="text" id="spritehealthvalue" class="meta-text-box">
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">Respawn:</label><br>
+                                <input type="text" id="spritehealthrespawn" class="meta-text-box">
+                            </div>
+                        </div>
+                    </div>
+                    <div id="spritesplayer" class="tab-pane fade">
+                        <h3>Player:</h3>
+                        <div class="sprite-box">
+                            <div>
+                                <label class="spriteeditor-label">Sprite:</label><br>
+                                <textarea id="spriteplayer" rows="8"></textarea>
+                            </div>
+                            <div>
+                                <label class="spriteeditor-label">Transparent-Char:</label><br>
+                                <input type="text" id="spriteplayertrans" class="meta-text-box">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div id="newmapmodal" class="modal fade" role="dialog">
+        <div class="modal-dialog small-dialog">
+            <div class="modal-content large">
+                <div class="modal-header spacer-left">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title">New Map</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="form-inline spacer-left">
+                        <p>Map Size: </p><input type="text" class="form-control spacer-top" id="mapsize" value="15">
+                        <p class="spacer-top">Map Name: </p><input type="text" class="form-control spacer-top" id="mapname">
+                    </div>
+                </div>
+                <div class="modal-footer row-xs-8">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" onClick="instance.changeMapSize(document.getElementById('mapsize').value)">Create
+                        New Map</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+</body>
+
+</html>
